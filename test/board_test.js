@@ -37,8 +37,72 @@ test("center cell is free space", function() {
 test("single-cell card is a winning card", function() {
 	var b = board({size:1});
 	var c0 = b.cell_at(0,0);
-	expect(3);
+	expect(2);
 	ok(c0.correct, "Free space is correct");
 	ok(b.is_winning_card, "is a winning card");
-	equals(b.serial_number, "0", "serial number == 0");
 });
+
+test("winning card has a correct row", function() {
+	var correct_values =['c1','c2','c3','c4','c5'];
+	var incorrect_values=['d1', 'd2', 'd3'];
+	var b = board({size:3, is_winning_card: true, correct_values:correct_values, distractors:incorrect_values});
+	var c0 = b.cell_at(1,1);
+	expect(4);
+	ok(c0.correct, "Free space is correct");
+	ok(b.is_winning_card, "Is a winning card");
+	ok(b.winning_cells != null, "Has winning cells");
+	equals(b.winning_cells.length, 3, "Has three winning cells");
+//	ok(b.get_cells().every(function(x){x != null && x.value != null}), "Every cell has a value");
+});
+
+test("non-winning card has no correct row", function() {
+	var correct_values =['c1','c2','c3','c4','c5'];
+	var incorrect_values=['d1', 'd2', 'd3'];
+	var b = board({size:3, is_winning_card: false, correct_values:correct_values, distractors:incorrect_values});
+	var c0 = b.cell_at(1,1);
+	expect(3);
+	ok(c0.correct, "Free space is correct");
+	ok(!b.is_winning_card, "Is not a winning card");
+	equals(b.winning_cells, null, "No winning cells");
+});
+
+test("winning card has all cells filled", function() {
+	var correct_values =['c1','c2','c3','c4','c5'];
+	var incorrect_values=['d1', 'd2', 'd3'];
+	var b = board({size:3, is_winning_card: true, correct_values:correct_values, distractors:incorrect_values});
+	expect(1);
+	var cells = b.get_cells();
+	ok(cells.every(function(x){return x != null && x.value != null}), "Every cell has a value");
+});
+
+test("non-winning card has all cells filled", function() {
+	var correct_values =['c1','c2','c3','c4','c5'];
+	var incorrect_values=['d1', 'd2', 'd3'];
+	var b = board({size:3, is_winning_card: false, correct_values:correct_values, distractors:incorrect_values});
+	expect(1);
+	var cells = b.get_cells();
+	ok(cells.every(function(x){return x != null && x.value != null}), "Every cell has a value");
+});
+
+
+/*
+test("card contains correct and incorrect values", function() {
+	var correct_values =['c1','c2','c3','c4','c5'];
+	var incorrect_values=['d1', 'd2', 'd3'];
+	var b = board({size:3, correct_values:['c1','c2','c3','c4','c5'], distractors:['d1', 'd2', 'd3']});
+	var cellValues = b.get_cells().map(function (x){return x.value});
+	expect(10);
+	ok(b.cell_at(1,1).correct, "Free space is correct");
+	ok(b.is_winning_card, "is a winning card");
+	for (var i=0; i<correct_values.length; i++) {
+		var cv = correct_values[i]
+		ok(cellValues.indexOf(cv) >= 0, "contains " + cv);
+	}
+	for (var i=0; i<incorrect_values.length; i++) {
+		var iv = incorrect_values[i]
+		ok(cellValues.indexOf(iv)  >= 0, "contains " + iv);
+	}
+});
+*/
+
+

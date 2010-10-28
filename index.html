@@ -3,9 +3,75 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>New Web Project</title>
+        <title>Bingo card Builder</title>
+        <script src="src/board.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
+		   <script type="text/javascript">
+		     $(document).ready(function(){
+            buildSample('#card1');
+		     });
+		     		     
+		     var buildSample = function(divID) {
+					  var correct_values =['c1','c2','c3','c4','c5', 'c6', 'c7','c8','c9', 'c10', 'c11','c12','c13','c14','c15', 'c16', 'c17','c18','c19', 'c20'];
+					  var incorrect_values=['d1', 'd2', 'd3', 'd4', 'd5'];
+					  var size=5;
+					  var b = board({size:size, is_winning_card: true, correct_values:correct_values, distractors:incorrect_values});
+					   var cells = b.get_cells();
+		       var table = '<table>';
+		       for (var i=0,row=0; row<size; row++) {
+		         table += '<tr>';
+		         for (var col=0;col<size;col++) { table += '<td>'+cells[i].value+'</td>'; i++ }
+		         table += '</tr>';
+		       }
+		       table += '</table>';
+		       $(divID).empty().append(table);
+		     };
+		   </script>
     </head>
     <body>
-        <h1>New Web Project Page</h1>
+        <h1>Bingo Card Builder</h1>
+        <div id="settings">        
+        </div>
+        <div id="cards">
+          <div id="card1">
+            <table>
+              <tr>
+                <td>0</td>
+                <td>1</td>
+                <td>2</td>
+                <td>3</td>
+                <td>4</td>
+              </tr>
+              <tr>
+                <td>5</td>
+                <td>6</td>
+                <td>7</td>
+                <td>8</td>
+                <td>9</td>
+              </tr>
+              <tr>
+                <td>10</td>
+                <td>11</td>
+                <td>12</td>
+                <td>13</td>
+                <td>14</td>
+              </tr>
+              <tr>
+                <td>15</td>
+                <td>16</td>
+                <td>17</td>
+                <td>18</td>
+                <td>19</td>
+              <tr>
+                <td>20</td>
+                <td>21</td>
+                <td>22</td>
+                <td>23</td>
+                <td>24</td>
+              </tr>
+            </table>
+            <a href="javascript:buildSample('#card1')">Rebuild</a>
+          </div>
+        </div>
     </body>
 </html>

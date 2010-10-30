@@ -17,6 +17,23 @@
 <h1>Bingo Card Builder</h1>
 
 <div id="settings">
+    <form action="javascript:buildCards">
+        <div>Board size: <select id="sizeMenu">
+            <option value="3">3 x 3</option>
+            <option value="5">5 x 5</option>
+        </select></div>
+        <div>Correct values (1 per line):
+            <textarea id="correct_values"></textarea>
+        </div>
+        <div>Incorrect values (1 per line):<textarea id="incorrect_values"></textarea></div>
+        <div>How many? <input id="numCards" type="text" value="25" size="3"/></div>
+        <div>
+            <button type="submit">Build cards</button>
+            &nbsp;
+            <button type="reset">Reset</button>
+        </div>
+    </form>
+    <hr/>
 </div>
 <div id="cards">
     <div id="card1">

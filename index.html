@@ -19,13 +19,48 @@
 <div id="settings">
     <form action="javascript:buildCards">
         <div>Board size: <select id="sizeMenu">
-            <option value="3">3 x 3</option>
-            <option value="5">5 x 5</option>
+            <option value="5" selected>5 x 5</option>
         </select></div>
         <div>Correct values (1 per line):
-            <textarea id="correct_values"></textarea>
+            <textarea id="correct_values" rows="30" cols="40">
+Mentor
+Short leash
+Long leash
+Scaffolding
+Whole-to-part
+Delayed feedback
+Consequences
+Realism
+Problem-solving
+Multiple-choice
+Decisions
+Whole tasks
+Scoring
+Motivation
+Rationales
+Rollover definitions
+Big-picture overviews
+After-action reviews
+Explanations
+Fading
+Assessment
+Coaching
+Terminal goal
+Scenarios
+Branching
+            </textarea>
         </div>
-        <div>Incorrect values (1 per line):<textarea id="incorrect_values"></textarea></div>
+        <div>Incorrect values (1 per line):
+            <textarea id="incorrect_values" rows="10" cols="40">
+Video
+Text-entry questions
+Time constraints
+3D animation
+User-created objects
+World-based
+Open-ended
+Role-plays
+            </textarea></div>
         <div>How many? <input id="numCards" type="text" value="25" size="3"/></div>
         <div>
             <button type="submit">Build cards</button>

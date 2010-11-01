@@ -16,7 +16,7 @@ var board = function(spec) {
 	var init = function(size) {
 		var c = [];
 		if (size % 2 == 0) throw new Error("only odd-sized arrays supported");
-		for (var i=0; i < numCells; i++) {c[i]={value:null, correct:false}};
+		for (var i=0; i < numCells; i++) {c[i]={value:null, correct:false}}
 		var mp = {};
 		mp.value = freeCellLabel;
 		mp.correct = true;
@@ -26,12 +26,12 @@ var board = function(spec) {
 	
 	var build = function() {
 		if (size == 1) {
-			that.is_winning_card = true;
+			that.isWinningCard = true;
 			// winningLine = 0;
 			// winningCells = [0];
-		} else if (distractors.length > 0 && correct_values.length > 0) {
+		} else if (incorrectValues.length > 0 && correctValues.length > 0) {
 			var lines = buildLines();
-			if (that.is_winning_card) addWinningLine(lines);
+			if (that.isWinningCard) addWinningLine(lines);
 			addDistractors(lines);
 			fillRemainingCells();
 		}
@@ -67,7 +67,7 @@ var board = function(spec) {
 	var addWinningLine = function(lines) {
 		var line = extractRandomElement(lines);
 		that.winning_cells = line;
-		for (var i=0; i < size; i++) setCell(line[i], correct_values);
+		for (var i=0; i < size; i++) setCell(line[i], correctValues);
 	};
 	
 	var rand = function(n) { return Math.floor(Math.random() * n) };
@@ -82,13 +82,13 @@ var board = function(spec) {
 			var line = extractRandomElement(lines);
 			if ((i=line.indexOf(midpoint)) >= 0) {line.splice(i,1)}; // no midpoint
 			i = getRandomElement(line);
-			setCell(i, distractors);
+			setCell(i, incorrectValues);
 			lines = lines.filter(function(cells){return cells.indexOf(i)<0}); // remove all lines that contain this cell
 		}
 	};
 	
 	var fillRemainingCells = function() {
-		var remainder = shuffle(correct_values.concat(distractors));
+		var remainder = shuffle(correctValues.concat(incorrectValues));
 		for (var i=0;i<numCells;i++) {
  			 if (that.cells[i] == null || that.cells[i].value == null) setCell(i, remainder);
 		}
@@ -113,14 +113,14 @@ var board = function(spec) {
 	var size = spec.size || 3;
 	var numCells = size * size;
 	var midpoint = (numCells - 1) / 2;
-	var correct_values = packageValues(spec.correct_values, true);
-	var distractors = packageValues(spec.distractors, false);
+	var correctValues = packageValues(spec.correctValues, true);
+	var incorrectValues = packageValues(spec.incorrectValues, false);
 	var freeCellLabel = spec.freeCellLabel || "Free space";
 	
-	shuffle(correct_values);
-	shuffle(distractors);
+	shuffle(correctValues);
+	shuffle(incorrectValues);
 
-	that.is_winning_card = (spec.is_winning_card == null) ? true : spec.is_winning_card;
+	that.isWinningCard = (spec.isWinningCard == null) ? true : spec.isWinningCard;
 	that.winning_cells = null;
 
 	// Create a blank board

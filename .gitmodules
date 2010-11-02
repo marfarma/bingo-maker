@@ -1,3 +1,6 @@
 [submodule "qunit"]
 	path = qunit
 	url = http://github.com/jquery/qunit.git
+[submodule "ICanHaz.js"]
+	path = ICanHaz.js
+	url = git@github.com:rdclark/ICanHaz.js.git

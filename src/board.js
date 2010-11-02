@@ -16,10 +16,11 @@ var board = function(spec) {
 	var init = function(size) {
 		var c = [];
 		if (size % 2 == 0) throw new Error("only odd-sized arrays supported");
-		for (var i=0; i < numCells; i++) {c[i]={value:null, correct:false}}
+		for (var i=0; i < numCells; i++) {c[i]={value:null, correct:false, type:'cell'}};
 		var mp = {};
 		mp.value = freeCellLabel;
 		mp.correct = true;
+        mp.type='free cell';
 		c[midpoint] = mp; // free cell in center
 		return c;
 	};	
@@ -61,7 +62,10 @@ var board = function(spec) {
 	};
 	
 	var setCell = function(index, list) {
-		if (index != midpoint && (that.cells[index] == null || that.cells[index].value == null)) that.cells[index] = list.splice(0,1)[0];
+		if (index != midpoint && (that.cells[index] == null || that.cells[index].value == null)) {
+            that.cells[index] = list.splice(0,1)[0];
+            that.cells[index].type = 'cell';
+        }
 	};
 	
 	var addWinningLine = function(lines) {

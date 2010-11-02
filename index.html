@@ -1,80 +1,1 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-        "http://www.w3.org/TR/html4/loose.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>Bingo card Builder</title>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
-    <script src="src/board.js"></script>
-    <script src="src/bingo-maker.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function() {
-            buildSample('#card1');
-        });
-    </script>
-</head>
-<body>
-<h1>Bingo Card Builder</h1>
-
-<div id="settings">
-    <form action="javascript:buildCards">
-        <div>Board size: <select id="sizeMenu">
-            <option value="5" selected>5 x 5</option>
-        </select></div>
-        <div>Correct values (1 per line):
-            <textarea id="correctValues" rows="30" cols="40">
-Mentor
-Short leash
-Long leash
-Scaffolding
-Whole-to-part
-Delayed feedback
-Consequences
-Realism
-Problem-solving
-Multiple-choice
-Decisions
-Whole tasks
-Scoring
-Motivation
-Rationales
-Rollover definitions
-Big-picture overviews
-After-action reviews
-Explanations
-Fading
-Assessment
-Coaching
-Terminal goal
-Scenarios
-Branching
-            </textarea>
-        </div>
-        <div>Incorrect values (1 per line):
-            <textarea id="incorrectValues" rows="10" cols="40">
-Video
-Text-entry questions
-Time constraints
-3D animation
-User-created objects
-World-based
-Open-ended
-Role-plays
-            </textarea></div>
-        <div>How many? <input id="numCards" type="text" value="25" size="3"/></div>
-        <div>How many winners? <input id="winningPercent" type="text" value="50" size="3"/>%</div>
-        <div>
-            <button type="submit">Build cards</button>
-            &nbsp;
-            <button type="reset">Reset</button>
-        </div>
-    </form>
-    <hr/>
-</div>
-<div id="cards">
-    <div id="card1">
-        <h3>Card goes here</h3>
-    </div>
-</div>
-</body>
-</html>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"        "http://www.w3.org/TR/html4/loose.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head>    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>    <title>Bingo card Builder</title><link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.2.0/build/cssreset/reset-min.css"><style>@charset "UTF-8";body {}.title {	text-align:center;	font-size:larger;	font-weight:bold;}.serial {	text-align:center;	font-size:smaller;	font-style:italic;}div.card {	font: 12pt "ITC Stone Informal Std Medium", "Lucida Sans Unicode";	page-break-before:always;	padding-bottom:4ex;    width:50em;    margin-left: auto;    margin-right: auto;}div.card table {	table-layout:fixed;	border: medium solid #000;}.free {    font-style:italic;}.cell {	text-align: center;	margin: 0px;	padding: 0px;	clear: none;	float: none;	height: 20ex;	width: 10em;	border: thin solid #000;}</style><script id="cardTemplate" type="text/html"><div class="card">  <div class="title">{{title}}</div>  <table>    {{#rows}}    <tr>      {{#cells}}      <td class="{{type}}">{{value}}</td>      {{/cells}}    </tr>    {{/rows}}  </table><div class="serial">Card #{{serialNumber}}</div></div></script>    <script src="ICanHaz.js/jquery-1.4.2.min.js"></script>    <script src="ICanHaz.js/mustache.js"></script>    <script src="ICanHaz.js/IcanHaz.js"></script>    <script src="src/board.js"></script>    <script src="src/bingo-maker.js"></script></head><body><h1>Bingo Card Builder</h1><div id="settings">    <form action="javascript:buildCards()">        <div>Board size: <select id="sizeMenu">            <option value="5" selected>5 x 5</option>        </select></div>        <div>Correct values (1 per line):            <textarea id="correctValues" rows="30" cols="40">MentorShort leashLong leashScaffoldingWhole-to-partDelayed feedbackConsequencesRealismProblem-solvingMultiple-choiceDecisionsWhole tasksScoringMotivationRationalesRollover definitionsBig-picture overviewsAfter-action reviewsExplanationsFadingAssessmentCoachingTerminal goalScenariosBranching            </textarea>        </div>        <div>Incorrect values (1 per line):            <textarea id="incorrectValues" rows="10" cols="40">VideoText-entry questionsTime constraints3D animationUser-created objectsWorld-basedOpen-endedRole-plays            </textarea></div>        <div>How many? <input id="numCards" type="text" value="5" size="3"/></div>        <div>How many winners? <input id="winningPercent" type="text" value="50" size="3"/>%</div>        <div>            <button type="submit">Build cards</button>            &nbsp;            <button type="reset">Reset</button>        </div>    </form>    <hr/></div><div id="cards"><!-- Cards will go here -->    <h3>Click <b>Build Cards</b> when ready</h3></div></body></html>

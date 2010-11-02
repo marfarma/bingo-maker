@@ -1,43 +1,1 @@
-/**
- * Created by IntelliJ IDEA.
- * User: rdclark
- * Date: Oct 30, 2010
- * Time: 12:07:23 PM
- * To change this template use File | Settings | File Templates.
- */
-function buildSample(divID) {
-    var correctValues = ['c1','c2','c3','c4','c5', 'c6', 'c7','c8','c9', 'c10', 'c11','c12','c13','c14','c15', 'c16', 'c17','c18','c19', 'c20'];
-    var incorrectValues = ['d1', 'd2', 'd3', 'd4', 'd5'];
-    var size = 5;
-    var b = board({size:size, is_winning_card: true, correctValues:correctValues, incorrectValues:incorrectValues});
-    var cells = b.get_cells();
-    var table = buildTable(size, cells);
-    $(divID).empty().append(table);
-}
-
-function getValuesFromForm() {
-    var size = $('#sizeMenu').val();
-    var numCards = $('#numCards').val();
-    var winningPercent = $('#winningPercent').val();
-    var correctValues = extractStrings($('#correctValues').val());
-    var incorrectValues = extractStrings($('#incorrectValues').val());
-    return {size:size, numCards:numCards, winningPercent:winningPercent, correctValues:correctValues, incorrectValues:incorrectValues};
-}
-
-function extractStrings(textAreaValue) {
-   return textAreaValue.split('\n').map(function (s) { return s.replace(/^\s\s*/, '').replace(/\s\s*$/, '')}).grep(function (s) {return s.length > 0});
-}
-
-function buildTable(size, cells) {
-    var table = '<table>';
-    for (var i = 0,row = 0; row < size; row++) {
-        table += '<tr>';
-        for (var col = 0; col < size; col++) {
-            table += '<td>' + cells[i].value + '</td>';
-            i++
-        }
-        table += '</tr>';
-    }
-    table += '</table>';
-    return table;
-}
+/** * Created by IntelliJ IDEA. * User: rdclark * Date: Oct 30, 2010 * Time: 12:07:23 PM * To change this template use File | Settings | File Templates. */function buildCards() {    var values = getValuesFromForm();	var div =  $('#cards').empty();    for (var i=1; i<=values.numCards; i++) {		var size = values.size;        var winner = Math.random() * 100 <= values.winningPercent;		var b = board({size:size, isWinningCard:winner, correctValues:values.correctValues, incorrectValues:values.incorrectValues});		var renderedCard = buildTable(size, b.get_cells(),'ID Theft Bingo',i);		div.append(renderedCard);	}}function getValuesFromForm() {    var size = $('#sizeMenu').val() * 1; // multiply by 1 to get a number    var numCards = $('#numCards').val() * 1;    var winningPercent = $('#winningPercent').val() * 1;    var correctValues = extractStrings($('#correctValues').val());    var incorrectValues = extractStrings($('#incorrectValues').val());    return {size:size, numCards:numCards, winningPercent:winningPercent, correctValues:correctValues, incorrectValues:incorrectValues};}function extractStrings(textAreaValue) {   var strings = textAreaValue.split('\n');   var result = strings.map(function (s) { return s.replace(/^\s\s*/, '').replace(/\s\s*$/, '')});   result = result.filter(function (s) {return s.length > 0});   return result;}function buildTable(numCols, cells,title,serialNumber) {	var rows = [];	for (var rowNum=0;rowNum<numCols;rowNum++) {		var probe = rowNum * numCols;		var rowCells = cells.slice(probe, probe+numCols);        rows.push({cells:rowCells})	}    return ich.cardTemplate({title:title, rows:rows, serialNumber:serialNumber});}
